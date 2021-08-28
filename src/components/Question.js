@@ -30,7 +30,7 @@ class Question extends Component {
         return (
             <Card style={{ width: '20rem' }}>
                 <Card.Header>{answered ? "Asked by " + user.name : user.name + " Asks"}</Card.Header>
-                <Card.Img variant="top" src={require(`../images/avatars/${user.avatarURL}.png`)} />
+                <Card.Img variant="top" src={`/images/avatars/${user.avatarURL}.png`} />
                 <Card.Body>
                     <Card.Text>
                         <p>{answered ? "Results" : "Would You Rather"}</p>
