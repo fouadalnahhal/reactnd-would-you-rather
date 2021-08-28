@@ -10,9 +10,9 @@ class Login extends Component {
         id: "",
       };
     handleSignIn = (e) => {
-        const selectForm = this.state.id;
+        const id = this.state.id;
         const { dispatch } = this.props;
-        dispatch(setAuthedUser(selectForm));
+        dispatch(setAuthedUser(id));
     };
     handleDropdownButton = (id) => {
         this.setState({ id: id });

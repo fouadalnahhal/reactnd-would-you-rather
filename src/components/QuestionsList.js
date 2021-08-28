@@ -6,12 +6,14 @@ class QuestionsList extends Component {
     render() {
         const { questions } = this.props;
         return (
-            <div className="questions-list">
-                {questions.length > 0 ? (
-                    questions.map((question) => <QuestionsListItem key={question.id} question={question} />)
-                ) : (
-                    <p id="no-questions">No Questions Here, Check The Other Tab</p>
-                )}
+            <div className="App" >
+                <div className="App-header" >
+                    {questions.length > 0 ? (
+                        questions.map((question) => <QuestionsListItem key={question.id} question={question} />)
+                    ) : (
+                        <p id="no-questions">No Questions Here, Check The Other Tab</p>
+                    )}
+                </div>
             </div>
         );
     }

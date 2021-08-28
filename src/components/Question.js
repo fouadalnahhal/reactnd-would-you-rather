@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, withRouter, Redirect } from "react-router-dom";
 import { handleAnswerQuestion } from "../actions/questions";
+import { Button, Card, Form, ProgressBar } from 'react-bootstrap';
 class Question extends Component {
     state = {
         option: "optionOne",
@@ -27,49 +28,58 @@ class Question extends Component {
         const { optionOne, optionTwo } = question;
         const totalVotes = optionOne.votes.length + optionTwo.votes.length;
         return (
-            <div className="question color-primary">
-                <div className="question-header">
-                    <Link to={answered ? "/poll/answered" : "/poll/unanswered"}>
-                        <img src="/images/arrow-back.svg" alt="back" />
-                    </Link>
-                    <p>{answered ? "Asked by " + user.name : user.name + " Asks"}</p>
-                </div>
-                <div className={`item-content${answered ? " answer-content" : ""}`}>
-                    <div className="content-image">
-                        <img alt="avatar" src={`/images/avatars/${user.avatarURL}.png`} />
-                    </div>
-                    <div className={`content-seperator${answered ? " answer-seperator" : ""}`}></div>
-                    <div className="content-text">
-                        <p className="would-you">{answered ? "Would You Rather" : "Results"}</p>
+            <Card style={{ width: '20rem' }}>
+                <Card.Header>{answered ? "Asked by " + user.name : user.name + " Asks"}</Card.Header>
+                <Card.Img variant="top" src={require(`../images/avatars/${user.avatarURL}.png`)} />
+                <Card.Body>
+                    <Card.Text>
+                        <p>{answered ? "Results" : "Would You Rather"}</p>
                         {answered ? (
-                            <form>
-                                <div className={`answer-section${question.optionOne.votes.includes(authedUser) ? " chosen-answer" : ""}`}>
-                                    <label>{optionOne.text}</label>
-                                    <div className="progress" data-label={`${this.calculateVotes(optionOne.votes.length, totalVotes)}% Complete`}>
-                                        <span className="value" style={{ width: this.calculateVotes(optionOne.votes.length, totalVotes) + "%" }}></span>
-                                    </div>
-                                    <label className="choice-percentage">{`${optionOne.votes.length} Out Of ${totalVotes}`}</label>
-                                </div>
-                                <div className={`answer-section${question.optionTwo.votes.includes(authedUser) ? " chosen-answer" : ""}`}>
-                                    <label>{optionTwo.text}</label>
-                                    <div className="progress" data-label={`${this.calculateVotes(optionTwo.votes.length, totalVotes)}% Complete`}>
-                                        <span className="value" style={{ width: this.calculateVotes(optionTwo.votes.length, totalVotes) + "%" }}></span>
-                                    </div>
-                                    <label className="choice-percentage">{`${optionTwo.votes.length} Out Of ${totalVotes}`}</label>
-                                </div>
-                            </form>
+                            <Form>
+                                <Card style={{ width: '18rem' }}>
+                                    <Card.Body>
+                                        <Card.Title>{optionOne.text}</Card.Title>
+                                        <Card.Text className="mt-3"><ProgressBar now={this.calculateVotes(optionOne.votes.length, totalVotes)} /></Card.Text>
+                                        <Card.Text className="mt-3">{`${optionOne.votes.length} Out Of ${totalVotes} votes`}</Card.Text>
+                                    </Card.Body>
+                                </Card>
+                                <Card style={{ width: '18rem' }} className="mt-3">
+                                    <Card.Body>
+                                        <Card.Title>{optionTwo.text}</Card.Title>
+                                        <Card.Text className="mt-3"> <ProgressBar now={this.calculateVotes(optionTwo.votes.length, totalVotes)} /></Card.Text>
+                                        <Card.Text className="mt-3"> {`${optionTwo.votes.length} Out Of ${totalVotes} votes`}</Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Form>
                         ) : (
-                            <form onSubmit={this.handleSubmit}>
-                                <input type="radio" id="optionOne" name="option" value="optionOne" onChange={this.handleChange} defaultChecked />
-                                <label htmlFor="optionOne">{optionOne.text}</label>
-                                <input type="radio" id="optionTwo" name="option" value="optionTwo" onChange={this.handleChange} />
-                                <label htmlFor="optionTwo">{optionTwo.text}</label>
-                                <input type="submit" value="Submit Vote" className="voteBtn" />
-                            </form>
+                            <Form onSubmit={this.handleSubmit}>
+                                <div key="inline-radio" className="mb-3">
+                                    <Form.Check
+                                        inline
+                                        label={optionOne.text}
+                                        name="group1"
+                                        type="radio"
+                                        id="optionOne"
+                                        value="optionOne"
+                                        onChange={this.handleChange}
+                                        defaultChecked
+                                    />
+                                    <Form.Check
+                                        inline
+                                        label={optionTwo.text}
+                                        name="group1"
+                                        type="radio"
+                                        id="optionTwo"
+                                        value="optionTwo"
+                                        onChange={this.handleChange}
+                                    />
+                                </div>
+                                <Button variant="primary" type="submit">Submit</Button>
+                            </Form>
                         )}
-                    </div>
-                </div>
-            </div>
+                    </Card.Text>
+                </Card.Body>
+            </Card>
         );
     }
 }

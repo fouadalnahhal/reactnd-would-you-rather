@@ -183,7 +183,7 @@ li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-size: calc(10px + 2vmin);
 }
 
@@ -191,3 +191,56 @@ li {
   color: rgb(112, 76, 182);
 }
 
+
+/*--Based On The Amazing Snippet By Richard Cotrina--*/
+/*---https://stackoverflow.com/a/26737044/15253212---*/
+
+#avatar-selector input {
+  margin: 0;
+  padding: 0;
+  appearance: none;
+}
+
+#avatar-selector label {
+  background-position: center;
+}
+
+#avatar-selector label:nth-of-type(1) {
+  background-image: url("./images/avatars/1.png");
+}
+
+#avatar-selector label:nth-of-type(2) {
+  background-image: url("./images/avatars/2.png");
+}
+#avatar-selector label:nth-of-type(3) {
+  background-image: url("./images/avatars/3.png");
+}
+#avatar-selector label:nth-of-type(4) {
+  background-image: url("./images/avatars/4.png");
+}
+#avatar-selector label:nth-of-type(5) {
+  background-image: url("./images/avatars/5.png");
+}
+#avatar-selector label:nth-of-type(6) {
+  background-image: url("./images/avatars/6.png");
+}
+
+#avatar-selector input:active + .user-avatar {
+  opacity: 0.9;
+}
+#avatar-selector input:checked + .user-avatar {
+  filter: none;
+}
+.user-avatar {
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 115px;
+  height: 70px;
+  transition: all 100ms ease-in;
+  filter: brightness(1.8) grayscale(1) opacity(0.7);
+}
+.user-avatar:hover {
+  filter: brightness(1.2) grayscale(0.5) opacity(0.9);
+}
