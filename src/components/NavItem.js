@@ -21,18 +21,18 @@ class NavItem extends Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/add">New Question</Nav.Link>
-              <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
+              <NavLink to="/">Home</NavLink>
+              <NavLink to="/add">New Question</NavLink>
+              <NavLink to="/leaderboard">Leaderboard</NavLink>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              <NavLink to="#deets">
                 Hello, {loggedOut ? "Please Login" : user.name}
                 <img alt="avatar" src={loggedOut ? "/images/avatars/0.png" : `/images/avatars/${user.avatarURL}.png`} /> {!loggedOut && "▾"}
                 <div className={loggedOut ? "" : ""}>
                   <p onClick={this.handleCLick}>Logout</p>
                 </div>
-              </Nav.Link>
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>

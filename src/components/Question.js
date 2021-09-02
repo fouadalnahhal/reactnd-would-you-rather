@@ -28,56 +28,54 @@ class Question extends Component {
         const { optionOne, optionTwo } = question;
         const totalVotes = optionOne.votes.length + optionTwo.votes.length;
         return (
-            <Card style={{ width: '20rem' }}>
+            <Card style={{ width: '20rem' }} className="mt-3">
                 <Card.Header>{answered ? "Asked by " + user.name : user.name + " Asks"}</Card.Header>
                 <Card.Img variant="top" src={`/images/avatars/${user.avatarURL}.png`} />
                 <Card.Body>
-                    <Card.Text>
-                        <p>{answered ? "Results" : "Would You Rather"}</p>
-                        {answered ? (
-                            <Form>
-                                <Card style={{ width: '18rem' }} border={`${question.optionOne.votes.includes(authedUser) ? "success" : ""}`}>
-                                    <Card.Body>
-                                        <Card.Title>{optionOne.text}</Card.Title>
-                                        <Card.Text className="mt-3"><ProgressBar now={this.calculateVotes(optionOne.votes.length, totalVotes)} /></Card.Text>
-                                        <Card.Text className="mt-3">{`${optionOne.votes.length} Out Of ${totalVotes} votes`}</Card.Text>
-                                    </Card.Body>
-                                </Card>
-                                <Card style={{ width: '18rem' }} className="mt-3" border={`${question.optionTwo.votes.includes(authedUser) ? "success" : ""}`}>
-                                    <Card.Body>
-                                        <Card.Title>{optionTwo.text}</Card.Title>
-                                        <Card.Text className="mt-3"> <ProgressBar now={this.calculateVotes(optionTwo.votes.length, totalVotes)} /></Card.Text>
-                                        <Card.Text className="mt-3"> {`${optionTwo.votes.length} Out Of ${totalVotes} votes`}</Card.Text>
-                                    </Card.Body>
-                                </Card>
-                            </Form>
-                        ) : (
-                            <Form onSubmit={this.handleSubmit}>
-                                <div key="inline-radio" className="mb-3">
-                                    <Form.Check
-                                        inline
-                                        label={optionOne.text}
-                                        name="group1"
-                                        type="radio"
-                                        id="optionOne"
-                                        value="optionOne"
-                                        onChange={this.handleChange}
-                                        defaultChecked
-                                    />
-                                    <Form.Check
-                                        inline
-                                        label={optionTwo.text}
-                                        name="group1"
-                                        type="radio"
-                                        id="optionTwo"
-                                        value="optionTwo"
-                                        onChange={this.handleChange}
-                                    />
-                                </div>
-                                <Button variant="primary" type="submit">Submit</Button>
-                            </Form>
-                        )}
-                    </Card.Text>
+                    <p>{answered ? "Results" : "Would You Rather"}</p>
+                    {answered ? (
+                        <Form>
+                            <Card style={{ width: '18rem' }} border={`${question.optionOne.votes.includes(authedUser) ? "success" : ""}`}>
+                                <Card.Body>
+                                    <Card.Title>{optionOne.text}</Card.Title>
+                                    <Card.Text className="mt-3"><ProgressBar now={this.calculateVotes(optionOne.votes.length, totalVotes)} /></Card.Text>
+                                    <Card.Text className="mt-3">{`${optionOne.votes.length} Out Of ${totalVotes} votes`}</Card.Text>
+                                </Card.Body>
+                            </Card>
+                            <Card style={{ width: '18rem' }} className="mt-3" border={`${question.optionTwo.votes.includes(authedUser) ? "success" : ""}`}>
+                                <Card.Body>
+                                    <Card.Title>{optionTwo.text}</Card.Title>
+                                    <Card.Text className="mt-3"> <ProgressBar now={this.calculateVotes(optionTwo.votes.length, totalVotes)} /></Card.Text>
+                                    <Card.Text className="mt-3"> {`${optionTwo.votes.length} Out Of ${totalVotes} votes`}</Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Form>
+                    ) : (
+                        <Form onSubmit={this.handleSubmit}>
+                            <div key="inline-radio" className="mb-3">
+                                <Form.Check
+                                    inline
+                                    label={optionOne.text}
+                                    name="group1"
+                                    type="radio"
+                                    id="optionOne"
+                                    value="optionOne"
+                                    onChange={this.handleChange}
+                                    defaultChecked
+                                />
+                                <Form.Check
+                                    inline
+                                    label={optionTwo.text}
+                                    name="group1"
+                                    type="radio"
+                                    id="optionTwo"
+                                    value="optionTwo"
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <Button variant="primary" type="submit">Submit</Button>
+                        </Form>
+                    )}
                 </Card.Body>
             </Card>
         );

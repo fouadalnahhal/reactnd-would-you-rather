@@ -33,21 +33,24 @@ class NewQuestion extends Component {
             return <Redirect to="/" />;
         }
         return (
-            <Form onSubmit={this.handleSubmit} className="mt-3">
-                <h1>Create New Question</h1>
-                <p>Complete the question</p>
-                <h2>Would You Rather</h2>
-                <Form.Group className="mb-3" controlId="questionOne">
-                    <Form.Control type="text" placeholder="Enter Option One Text Here" onChange={this.handleChange} />
-                </Form.Group>
-                <h2>OR</h2>
-                <Form.Group className="mb-3" controlId="questionTwo">
-                    <Form.Control type="text" placeholder="Enter Option Two Text Here" onChange={this.handleChange} />
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
-            </Form>
+            <Card style={{ width: '18rem' }} className="mt-3">
+                <Card.Body>
+                    <Card.Title>Create New Question</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">Complete the question</Card.Subtitle>
+                    <Card.Text>Would You Rather</Card.Text>
+                    <Form onSubmit={this.handleSubmit}>
+                        <Form.Group className="mb-3" controlId="questionOne">
+                            <Form.Control type="text" placeholder="Enter Option One Text Here" onChange={this.handleChange} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="questionTwo">
+                            <Form.Control type="text" placeholder="Enter Option Two Text Here" onChange={this.handleChange} />
+                        </Form.Group>
+                        <Button variant="primary" type="submit">
+                            Submit
+                        </Button>
+                    </Form>
+                </Card.Body>
+            </Card>
         )
     }
 }
