@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect, withRouter  } from "react-router-dom";
 import PropTypes from "prop-types";
 import LoadingBar from "react-redux-loading";
 import NavItem from "./NavItem";
@@ -38,9 +38,9 @@ class App extends Component {
               <Switch>
                 {/* My first thought was to force the user to navigate to the login page if they are logged out then take them back to the page
                     they were in once they finished logging in but it wasn't reliable so instead I will do a conditional rendering of the login page */}
-                <Route path="/login">
+                {/* <Route path="/login">
                   <Login />
-                </Route>
+                </Route> */}
                 {/* {this.props.loggedOut && <Redirect to="/login" />} */}
                 <Route exact path="/">
                   <Redirect to="poll" />
@@ -103,4 +103,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
