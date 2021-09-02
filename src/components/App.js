@@ -61,12 +61,17 @@ class App extends Component {
                     </div>
                   </div>
                 </Route>
-                {/* <Route path="/leaderboard">
-                      <Leaderboard />
-                    </Route>
-                    <Route path="/add">
+                <Route path="/add">
+                  <div className="App" >
+                    <div className="App-header" >
                       <NewQuestion />
-                    </Route> */}
+                    </div>
+                  </div>
+
+                </Route>
+                {/* <Route path="/leaderboard">
+                  <Leaderboard />
+                </Route> */}
                 {/* <Route path="/not-found">
                       <NotFound />
                     </Route> */}
