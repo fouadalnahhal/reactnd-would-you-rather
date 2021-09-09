@@ -10,7 +10,7 @@ class Poll extends Component {
         return (
             <React.Fragment>
                 {this.props.authedUser !== null ? (
-                    <div className="poll">
+                    <div>
                         <PollNav />
                         <Switch>
                             <Route exact path="/poll">
