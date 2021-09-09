@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import PollNav from "./PollNav";
 import QuestionsList from "./QuestionsList";
 
@@ -14,7 +14,7 @@ class Poll extends Component {
                         <PollNav />
                         <Switch>
                             <Route exact path="/poll">
-                                <Redirect to="poll/unanswered" />
+                                <Redirect to="/poll/unanswered" />
                             </Route>
                             <Route path="/poll/answered">
                                 <QuestionsList questions={this.props.answeredQuestions} />
@@ -57,4 +57,4 @@ function mapStateToProps({ authedUser, users, questions }) {
     };
 }
 
-export default connect(mapStateToProps)(Poll);
+export default withRouter(connect(mapStateToProps)(Poll));

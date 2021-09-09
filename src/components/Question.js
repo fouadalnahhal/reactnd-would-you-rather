@@ -32,20 +32,23 @@ class Question extends Component {
                 <Card.Header>{answered ? "Asked by " + user.name : user.name + " Asks"}</Card.Header>
                 <Card.Img variant="top" src={`/images/avatars/${user.avatarURL}.png`} />
                 <Card.Body>
+                    <Link to={answered ? "/poll/answered" : "/poll/unanswered"}>
+                        {/* <img src="/images/arrow-back.svg" alt="back"/> */}
+                    </Link>
                     <p>{answered ? "Results" : "Would You Rather"}</p>
                     {answered ? (
                         <Form>
                             <Card style={{ width: '18rem' }} border={`${question.optionOne.votes.includes(authedUser) ? "success" : ""}`}>
                                 <Card.Body>
                                     <Card.Title>{optionOne.text}</Card.Title>
-                                    <Card.Text className="mt-3"><ProgressBar now={this.calculateVotes(optionOne.votes.length, totalVotes)} /></Card.Text>
+                                    <ProgressBar className="mt-3" now={this.calculateVotes(optionOne.votes.length, totalVotes)} />
                                     <Card.Text className="mt-3">{`${optionOne.votes.length} Out Of ${totalVotes} votes`}</Card.Text>
                                 </Card.Body>
                             </Card>
                             <Card style={{ width: '18rem' }} className="mt-3" border={`${question.optionTwo.votes.includes(authedUser) ? "success" : ""}`}>
                                 <Card.Body>
                                     <Card.Title>{optionTwo.text}</Card.Title>
-                                    <Card.Text className="mt-3"> <ProgressBar now={this.calculateVotes(optionTwo.votes.length, totalVotes)} /></Card.Text>
+                                    <ProgressBar className="mt-3" now={this.calculateVotes(optionTwo.votes.length, totalVotes)} />
                                     <Card.Text className="mt-3"> {`${optionTwo.votes.length} Out Of ${totalVotes} votes`}</Card.Text>
                                 </Card.Body>
                             </Card>
