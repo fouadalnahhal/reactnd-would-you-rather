@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import PollNav from "./PollNav";
 import QuestionsList from "./QuestionsList";
+import ProtectedRoute from "./ProtectedRoute";
 
 class Poll extends Component {
     render() {
@@ -16,12 +17,16 @@ class Poll extends Component {
                             <Route exact path="/poll">
                                 <Redirect to="/poll/unanswered" />
                             </Route>
-                            <Route path="/poll/answered">
-                                <QuestionsList questions={this.props.answeredQuestions} />
-                            </Route>
-                            <Route path="/poll/unanswered">
-                                <QuestionsList questions={this.props.unAnsweredQuestions} />
-                            </Route>
+                            <ProtectedRoute
+                                path="/poll/answered"
+                                component={QuestionsList}
+                                questions={this.props.answeredQuestions}
+                            />
+                            <ProtectedRoute
+                                path="/poll/unanswered"
+                                component={QuestionsList}
+                                questions={this.props.unAnsweredQuestions}
+                            />
                         </Switch>
                     </div>
                 ) : (
@@ -37,20 +42,25 @@ Poll.propTypes = {
     unAnsweredQuestions: PropTypes.array.isRequired,
 };
 
-function mapStateToProps({ authedUser, users, questions }) {
-    //Extract all the users answers object keys not values as they are held in this format {QuestionID: Option}
-    const userAnswers = Object.keys(users[authedUser].answers);
+function compareNumbers(a, b) {
+    return b.timestamp - a.timestamp;
+}
 
-    //Extract all the values from the questions object as they are held in this format {QuestionID: Question}
-    const answeredQuestions = Object.values(questions)
-        .filter((question) => userAnswers.includes(question.id)) //Verify if the questionID exists in the userAnswers
-        .map((question) => Object.assign({}, question, { type: "answered" })) //Attach the type to the object
-        .sort((a, b) => b.timestamp - a.timestamp); //Sort by newest to oldest
+function mapStateToProps({ authedUser, questions }) {
+    const answeredQuestions = Object.values(questions).filter(
+        (question) => (question.optionOne.votes.length > 0 && question.optionOne.votes.includes(authedUser)) ||
+            (question.optionTwo.votes.length > 0 && question.optionTwo.votes.includes(authedUser))
+    ).map((question) => Object.assign({}, question, { type: "answered" }))
+        .sort(compareNumbers);
 
-    const unAnsweredQuestions = Object.values(questions)
-        .filter((question) => !userAnswers.includes(question.id))
-        .map((question) => Object.assign({}, question, { type: "unanswered" }))
-        .sort((a, b) => b.timestamp - a.timestamp);
+    const unAnsweredQuestions = Object.values(questions).filter(
+        (question) => ((question.optionOne.votes.length === 0 && question.optionTwo.votes.length === 0) ||
+            (question.optionOne.votes.length === 0 && !question.optionTwo.votes.includes(authedUser)) ||
+            (question.optionTwo.votes.length === 0 && !question.optionOne.votes.includes(authedUser))
+        )
+    ).map((question) => Object.assign({}, question, { type: "unanswered" }))
+        .sort(compareNumbers);
+
     return {
         answeredQuestions,
         unAnsweredQuestions,

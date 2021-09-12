@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link, withRouter, Redirect } from "react-router-dom";
+import { NavLink, withRouter, Redirect } from "react-router-dom";
 import { handleAnswerQuestion } from "../actions/questions";
 import { Button, Card, Form, ProgressBar } from 'react-bootstrap';
+import { ArrowLeft } from 'react-bootstrap-icons';
+
 class Question extends Component {
     state = {
         option: "optionOne",
@@ -29,12 +31,14 @@ class Question extends Component {
         const totalVotes = optionOne.votes.length + optionTwo.votes.length;
         return (
             <Card style={{ width: '20rem' }} className="mt-3">
-                <Card.Header>{answered ? "Asked by " + user.name : user.name + " Asks"}</Card.Header>
+                <Card.Header>
+                    <NavLink to={answered ? "/poll/answered" : "/poll/unanswered"}>
+                        <ArrowLeft color="royalblue" size={30} className="ml-4"/>
+                    </NavLink>
+                    {answered ? " Asked by " + user.name : "  " + user.name + " Asks"}</Card.Header>
                 <Card.Img variant="top" src={`/images/avatars/${user.avatarURL}.png`} />
                 <Card.Body>
-                    <Link to={answered ? "/poll/answered" : "/poll/unanswered"}>
-                        {/* <img src="/images/arrow-back.svg" alt="back"/> */}
-                    </Link>
+
                     <p>{answered ? "Results" : "Would You Rather"}</p>
                     {answered ? (
                         <Form>

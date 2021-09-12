@@ -9,7 +9,6 @@ class QuestionsListItem extends Component {
         const { user } = this.props;
         const { id, optionOne, type } = this.props.question;
         return (
-
             <div className="question">
                 <Card className="mt-3" style={{ width: '18rem' }}>
                     <Card.Body>
