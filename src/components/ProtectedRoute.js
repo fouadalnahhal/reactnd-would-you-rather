@@ -1,7 +1,5 @@
 import React from "react";
-import { Route, Redirect, withRouter } from "react-router";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { Route } from "react-router";
 import Login from "./Login";
 
 const ProtectedRoute = ({ component: Component, exact, path, loggedOut, questions }) => (
