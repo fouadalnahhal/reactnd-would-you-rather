@@ -40,7 +40,7 @@ class Question extends Component {
                 <Card.Body>
                     {(question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)) ? (
                         <React.Fragment>
-                            <p>"Results"</p>
+                            <p>Results</p>
                             <Form>
                                 <Card style={{ width: '18rem' }} border={`${question.optionOne.votes.includes(authedUser) ? "success" : ""}`}>
                                     <Card.Body>
