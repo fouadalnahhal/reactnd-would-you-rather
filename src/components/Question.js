@@ -34,35 +34,43 @@ class Question extends Component {
                     <NavLink to={(question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)) ? "/poll/answered" : "/poll/unanswered"}>
                         <ArrowLeft color="royalblue" size={30} className="ml-4" />
                     </NavLink>
-                    {(question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)) ? " Asked by " + user.name : "  " + user.name + " Asks"}</Card.Header>
+                    {(question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)) ? " Asked by " + user.name : "  " + user.name + " Asks"}
+                </Card.Header>
                 <Card.Img variant="top" src={`/images/avatars/${user.avatarURL}.png`} />
                 <Card.Body>
-                    <p>{(question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)) ? "Results" : "Would You Rather"}</p>
                     {(question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)) ? (
-                        <Form>
-                            <Card style={{ width: '18rem' }} border={`${question.optionOne.votes.includes(authedUser) ? "success" : ""}`}>
-                                <Card.Body>
-                                    <Card.Title>{question.optionOne.text}</Card.Title>
-                                    <ProgressBar className="mt-3" now={Math.round((question.optionOne.votes.length / totalVotes) * 100)} />
-                                    <Card.Text className="mt-3">{`${question.optionOne.votes.length} Out Of ${totalVotes} votes`}</Card.Text>
-                                </Card.Body>
-                            </Card>
-                            <Card style={{ width: '18rem' }} className="mt-3" border={`${question.optionTwo.votes.includes(authedUser) ? "success" : ""}`}>
-                                <Card.Body>
-                                    <Card.Title>{question.optionTwo.text}</Card.Title>
-                                    <ProgressBar className="mt-3" now={Math.round((question.optionOne.votes.length / totalVotes) * 100)} />
-                                    <Card.Text className="mt-3"> {`${question.optionTwo.votes.length} Out Of ${totalVotes} votes`}</Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Form>
+                        <React.Fragment>
+                            <p>"Results"</p>
+                            <Form>
+                                <Card style={{ width: '18rem' }} border={`${question.optionOne.votes.includes(authedUser) ? "success" : ""}`}>
+                                    <Card.Body>
+                                        <Card.Title>{question.optionOne.text}</Card.Title>
+                                        <ProgressBar className="mt-3" now={Math.round((question.optionOne.votes.length / totalVotes) * 100)} />
+                                        <Card.Text className="mt-3">{`${question.optionOne.votes.length} Out Of ${totalVotes} votes`}</Card.Text>
+                                    </Card.Body>
+                                </Card>
+                                <Card style={{ width: '18rem' }} className="mt-3" border={`${question.optionTwo.votes.includes(authedUser) ? "success" : ""}`}>
+                                    <Card.Body>
+                                        <Card.Title>{question.optionTwo.text}</Card.Title>
+                                        <ProgressBar className="mt-3" now={Math.round((question.optionOne.votes.length / totalVotes) * 100)} />
+                                        <Card.Text className="mt-3"> {`${question.optionTwo.votes.length} Out Of ${totalVotes} votes`}</Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Form>
+                        </React.Fragment>
+
                     ) : (
-                        <Form onSubmit={this.handleSubmit}>
-                            <div key="inline-radio" className="mb-3">
-                                <Form.Check inline label={question.optionOne.text} name="group1" type="radio" id="optionOne" value="optionOne" onChange={this.handleChange} defaultChecked />
-                                <Form.Check inline label={question.optionTwo.text} name="group1" type="radio" id="optionTwo" value="optionTwo" onChange={this.handleChange} />
-                            </div>
-                            <Button variant="primary" type="submit">Submit</Button>
-                        </Form>
+                        <React.Fragment>
+                            <p>Would You Rather</p>
+                            <Form onSubmit={this.handleSubmit}>
+                                <div key="inline-radio" className="mb-3">
+                                    <Form.Check inline label={question.optionOne.text} name="group1" type="radio" id="optionOne" value="optionOne" onChange={this.handleChange} defaultChecked />
+                                    <Form.Check inline label={question.optionTwo.text} name="group1" type="radio" id="optionTwo" value="optionTwo" onChange={this.handleChange} />
+                                </div>
+                                <Button variant="primary" type="submit">Submit</Button>
+                            </Form>
+                        </React.Fragment>
+
                     )}
                 </Card.Body>
             </Card>

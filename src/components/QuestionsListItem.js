@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import {Button, Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 
 class QuestionsListItem extends Component {
     render() {
