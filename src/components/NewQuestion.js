@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleAddQuestion } from "../actions/questions";
 import { Redirect } from "react-router-dom";
-import { Button, Card, Form } from 'react-bootstrap';
+import { Toast, Button, Card, Form } from 'react-bootstrap';
 
 class NewQuestion extends Component {
     state = {
-        questionOne: "",
-        questionTwo: "",
+        validationCustom01: "",
+        validationCustom02: "",
         redirect: false,
+        validated: false,
     };
 
     handleChange = (e) => {
@@ -17,17 +18,22 @@ class NewQuestion extends Component {
         this.setState({ [element.id]: element.value });
     };
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        const { dispatch } = this.props;
-        const { questionOne, questionTwo } = this.state;
-        if (questionOne.trim() === "" || questionTwo.trim() === "") {
-            alert("One or more questions are empty, please make sure both fields are filled.");
+    handleSubmit = (event) => {
+        const form = event.currentTarget;
+
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
         } else {
-            dispatch(handleAddQuestion(questionOne, questionTwo));
+            const { dispatch } = this.props;
+            const { validationCustom01, validationCustom02 } = this.state;
+            dispatch(handleAddQuestion(validationCustom01, validationCustom02));
             this.setState({ redirect: true });
         }
+
+        this.setState({ validated: true });
     };
+
     render() {
         if (this.state.redirect) {
             return <Redirect to="/" />;
@@ -38,12 +44,20 @@ class NewQuestion extends Component {
                     <Card.Title>Create New Question</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">Complete the question</Card.Subtitle>
                     <Card.Text>Would You Rather</Card.Text>
-                    <Form onSubmit={this.handleSubmit}>
-                        <Form.Group className="mb-3" controlId="questionOne">
-                            <Form.Control type="text" placeholder="Enter Option One Text Here" onChange={this.handleChange} />
+                    <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
+                        <Form.Group className="mb-3" controlId="validationCustom01">
+                            <Form.Control
+                                required
+                                type="text"
+                                placeholder="Enter Option One Text Here"
+                                onChange={this.handleChange} />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="questionTwo">
-                            <Form.Control type="text" placeholder="Enter Option Two Text Here" onChange={this.handleChange} />
+                        <Form.Group className="mb-3" controlId="validationCustom02">
+                            <Form.Control
+                                required
+                                type="text"
+                                placeholder="Enter Option Two Text Here"
+                                onChange={this.handleChange} />
                         </Form.Group>
                         <Button variant="primary" type="submit">
                             Submit

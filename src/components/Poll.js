@@ -42,9 +42,10 @@ Poll.propTypes = {
     unAnsweredQuestions: PropTypes.array.isRequired,
 };
 
-function compareNumbers(a, b) {
-    return b.timestamp - a.timestamp;
+function compareNumbers(firstEl, secondEl) {
+    return firstEl.timestamp - secondEl.timestamp;
 }
+
 
 function mapStateToProps({ authedUser, questions }) {
     const answeredQuestions = Object.values(questions).filter(

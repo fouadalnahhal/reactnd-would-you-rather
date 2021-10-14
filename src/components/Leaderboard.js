@@ -37,7 +37,7 @@ class Leaderboard extends Component {
                             <React.Fragment key={user.id}>
                                 <Col>
                                     <Card>
-                                        <Card.Img variant="top" src={`images/avatars/${user.avatarURL}.png`} />
+                                        <Card.Img  variant="top" src={`images/avatars/${user.avatarURL}.png`} />
                                         <Card.Body>
                                             <Card.Title>{user.name}</Card.Title>
                                             <Card.Text>
